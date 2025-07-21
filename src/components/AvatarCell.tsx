@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import type { FaceCell } from "../models/FaceCell";
+import defaultAvatar from '../assets/faces/no_user_photo.png';
 
 interface AvatarCellProps {
   data: FaceCell;
@@ -33,40 +34,26 @@ export const AvatarCell: React.FC<AvatarCellProps> = ({
     }
   };
 
-  if (hasData) {
-    const adjustedImageUrl = hasData ? data.imageUrl + `/${imageSize}` : "";
+    const imageUrl = hasData
+    ? `${data.imageUrl}/${imageSize}`
+    : defaultAvatar;
+     const title = hasData ? data.name : 'Default avatar';
+
     return (
       <div
         className="group relative w-[20px] h-[20px] overflow-visible cursor-pointer hover:z-10"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        title={data.name}
+        title={title}
       >
-        <div className="rounded overflow-hidden transform transition-transform duration-200 ease-out hover:scale-125 ring-0 group-hover:ring-yellow-400">
+        <div className="rounded overflow-hidden transform transition-transform duration-200 ease-out hover:scale-125 ring-0 group-hover:ring-yellow-400 border border-gray-600">
           <img
-            src={adjustedImageUrl}
-            alt={data.name || ""}
+            src={imageUrl}
+            alt={title}
             className="w-full h-full object-cover"
           />
         </div>
       </div>
     );
-  }
-  else{
-    return (
-      <div
-        className="group relative w-[20px] h-[20px] overflow-visible cursor-pointer hover:z-10"
-        onClick={() => onClick?.(data)}
-        title="title"
-      >
-        <div className="rounded overflow-hidden transform transition-transform duration-200 ease-out hover:scale-125 ring-0 group-hover:ring-yellow-400">
-          <img
-            src="https://picsum.photos/id/1/200"
-            alt={""}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    );
-  }
+
 };
