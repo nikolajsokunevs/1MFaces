@@ -6,7 +6,9 @@ import type { FaceCell } from "../../models/FaceCell";
 
 const GRID_WIDTH = 1000;
 const GRID_HEIGHT = 1000;
-const BASE_CELL_SIZE = 25;
+
+const CELL_SIZE = Math.max(window.innerWidth, window.innerHeight) / 50; 
+const BASE_CELL_SIZE = CELL_SIZE;
 const BUFFER = 2;
 
 export const FaceGrid: React.FC = () => {
@@ -64,8 +66,8 @@ export const FaceGrid: React.FC = () => {
       }}
     >
       <TransformWrapper
-        minScale={0}
-        maxScale={5}
+        minScale={1}
+        maxScale={3}
         initialScale={1}
         wheel={{ step: 0.1 }}
         doubleClick={{ disabled: true }}
