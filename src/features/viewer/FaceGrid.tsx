@@ -88,7 +88,7 @@ export const FaceGrid: React.FC = () => {
             }}
           >
             {visibleCells.map(({ x, y, cell }) => (
-              <div
+              <div className="jft"
                 key={`${x}-${y}`}
                 style={{
                   position: "absolute",
@@ -98,7 +98,10 @@ export const FaceGrid: React.FC = () => {
                   height: BASE_CELL_SIZE,
                 }}
               >
-                <AvatarCell data={cell} imageSize={BASE_CELL_SIZE * transform.scale} />
+                <div className="w-full h-full">
+                   <AvatarCell data={cell} imageSize={BASE_CELL_SIZE * transform.scale} />
+                </div>
+                
               </div>
             ))}
           </div>
