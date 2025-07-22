@@ -11,6 +11,11 @@ const CELL_SIZE = Math.max(window.innerWidth, window.innerHeight) / 50;
 const BASE_CELL_SIZE = CELL_SIZE;
 const BUFFER = 2;
 
+function getImageSizeByZoom(zoom: number): number {
+  if (zoom < 2) return 20;
+  return 40;
+}
+
 export const FaceGrid: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState({ scale: 1, positionX: 0, positionY: 0 });
@@ -25,7 +30,6 @@ export const FaceGrid: React.FC = () => {
 
   const cellSize = BASE_CELL_SIZE * transform.scale;
 
-  // Вычисляем, какие ячейки попадают в область видимости
   const visibleCells = useMemo(() => {
     const container = containerRef.current;
     if (!container) return [];
@@ -99,7 +103,7 @@ export const FaceGrid: React.FC = () => {
                 }}
               >
                 <div className="w-full h-full">
-                   <AvatarCell data={cell} imageSize={BASE_CELL_SIZE * transform.scale} />
+                   <AvatarCell data={cell} imageSize={getImageSizeByZoom(transform.scale)} />
                 </div>
                 
               </div>

@@ -41,7 +41,7 @@ export const AvatarCell: React.FC<AvatarCellProps> = ({
 
     return (
       <div
-        className="group relative w-[20px] h-[20px] overflow-visible cursor-pointer hover:z-10"
+        className="group relative w-full h-full overflow-visible cursor-pointer hover:z-10"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         title={title}
