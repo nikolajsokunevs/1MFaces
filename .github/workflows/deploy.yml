@@ -1,0 +1,16 @@
+name: 4. Deploy Traffic Mirroring Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+
+    env:
+      FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
