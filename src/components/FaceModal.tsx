@@ -13,13 +13,13 @@ export const FaceModal: React.FC<FaceModalProps> = ({ data, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white text-black p-6 rounded-xl w-80 relative shadow-xl"
+        className="bg-white text-black p-6 rounded-xl w-[90vw] max-w-md shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <img
           src={data.imageUrl + "/900"}
           alt=""
-          className="w-700 h-700 rounded-30 mx-auto mb-4 object-cover"
+          className="w-full h-auto rounded-xl mb-4 object-cover max-h-[70vh]"
         />
         <h2 className="text-xl font-semibold text-center">
           {data.name || "Аноним"}

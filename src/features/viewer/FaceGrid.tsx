@@ -1,24 +1,35 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { mockFaces } from "./mockFaces";
 import { AvatarCell } from "../../components/AvatarCell";
+import { FaceModal } from "../../components/FaceModal";
 import type { FaceCell } from "../../models/FaceCell";
+import { UploadModal } from "../../components/UploadModal";
 
 const GRID_WIDTH = 1000;
 const GRID_HEIGHT = 1000;
 
-const CELL_SIZE = Math.max(window.innerWidth, window.innerHeight) / 50; 
+const CELL_SIZE = Math.max(window.innerWidth, window.innerHeight) / 40;
 const BASE_CELL_SIZE = CELL_SIZE;
 const BUFFER = 2;
 
 function getImageSizeByZoom(zoom: number): number {
-  if (zoom < 2) return 20;
-  return 40;
+  if (zoom < 2) return 40;
+  return 80;
 }
 
 export const FaceGrid: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState({ scale: 1, positionX: 0, positionY: 0 });
+  const [transform, setTransform] = useState({
+    scale: 1,
+    positionX: 0,
+    positionY: 0,
+  });
+  const [selectedFace, setSelectedFace] = useState<FaceCell | null>(null);
+  const [selectedEmptyCell, setSelectedEmptyCell] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   const faceMap = useMemo(() => {
     const map = new Map<string, FaceCell>();
@@ -27,8 +38,6 @@ export const FaceGrid: React.FC = () => {
     }
     return map;
   }, []);
-
-  const cellSize = BASE_CELL_SIZE * transform.scale;
 
   const visibleCells = useMemo(() => {
     const container = containerRef.current;
@@ -41,15 +50,27 @@ export const FaceGrid: React.FC = () => {
     const offsetY = -transform.positionY / transform.scale;
 
     const startCol = Math.floor(offsetX / BASE_CELL_SIZE) - BUFFER;
-    const endCol = Math.ceil((offsetX + viewportWidth / transform.scale) / BASE_CELL_SIZE) + BUFFER;
+    const endCol =
+      Math.ceil((offsetX + viewportWidth / transform.scale) / BASE_CELL_SIZE) +
+      BUFFER;
 
     const startRow = Math.floor(offsetY / BASE_CELL_SIZE) - BUFFER;
-    const endRow = Math.ceil((offsetY + viewportHeight / transform.scale) / BASE_CELL_SIZE) + BUFFER;
+    const endRow =
+      Math.ceil((offsetY + viewportHeight / transform.scale) / BASE_CELL_SIZE) +
+      BUFFER;
 
     const cells = [];
 
-    for (let y = Math.max(0, startRow); y < Math.min(GRID_HEIGHT, endRow); y++) {
-      for (let x = Math.max(0, startCol); x < Math.min(GRID_WIDTH, endCol); x++) {
+    for (
+      let y = Math.max(0, startRow);
+      y < Math.min(GRID_HEIGHT, endRow);
+      y++
+    ) {
+      for (
+        let x = Math.max(0, startCol);
+        x < Math.min(GRID_WIDTH, endCol);
+        x++
+      ) {
         const key = `${x}-${y}`;
         const cell = faceMap.get(key) || null;
         cells.push({ x, y, cell });
@@ -92,7 +113,7 @@ export const FaceGrid: React.FC = () => {
             }}
           >
             {visibleCells.map(({ x, y, cell }) => (
-              <div className="jft"
+              <div
                 key={`${x}-${y}`}
                 style={{
                   position: "absolute",
@@ -102,15 +123,40 @@ export const FaceGrid: React.FC = () => {
                   height: BASE_CELL_SIZE,
                 }}
               >
-                <div className="w-full h-full">
-                   <AvatarCell data={cell} imageSize={getImageSizeByZoom(transform.scale)} />
+                <div className="w-full h-full">       
+                  <AvatarCell
+                    data={cell}
+                    imageSize={getImageSizeByZoom(transform.scale)}
+                    x={x}
+                    y={y}
+                    onClick={(face) => {
+                      if (face) {
+                        setSelectedFace(face);
+                      } else {
+                          console.log("frgty")
+                        setSelectedEmptyCell({ x, y });
+                      }
+                    }}
+                  />
                 </div>
-                
               </div>
             ))}
           </div>
         </TransformComponent>
       </TransformWrapper>
+
+      {selectedFace && (
+        <FaceModal data={selectedFace} onClose={() => setSelectedFace(null)} />
+      )}
+
+      {selectedEmptyCell && (
+        <UploadModal
+          x={selectedEmptyCell.x}
+          y={selectedEmptyCell.y}
+          onClose={() => setSelectedEmptyCell(null)}
+        />
+      )
+      }
     </div>
   );
 };

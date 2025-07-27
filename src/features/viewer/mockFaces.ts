@@ -3,8 +3,8 @@ import type { FaceCell } from "../../models/FaceCell";
 export const mockFaces: FaceCell[] = [
   {
     "id": "1",
-    "x": 850,
-    "y": 550,
+    "x": 7,
+    "y": 7,
     "imageUrl": "https://picsum.photos/id/1/",
     "name": "Isabella",
     "country": "Canada",
@@ -18,8 +18,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "2",
-    "x": 702,
-    "y": 561,
+    "x": 10,
+    "y": 51,
     "imageUrl": "https://picsum.photos/id/2/",
     "name": "Ava",
     "country": "Canada",
@@ -33,8 +33,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "3",
-    "x": 432,
-    "y": 210,
+    "x": 42,
+    "y": 21,
     "imageUrl": "https://picsum.photos/id/3/",
     "name": "Sophia",
     "country": "France",
@@ -48,8 +48,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "4",
-    "x": 544,
-    "y": 385,
+    "x": 44,
+    "y": 35,
     "imageUrl": "https://picsum.photos/id/4/",
     "name": "Alice",
     "country": "France",
@@ -63,8 +63,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "5",
-    "x": 444,
-    "y": 449,
+    "x": 4,
+    "y": 9,
     "imageUrl": "https://picsum.photos/id/5/",
     "name": "Benjamin",
     "country": "Italy",
@@ -78,8 +78,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "6",
-    "x": 472,
-    "y": 446,
+    "x": 12,
+    "y": 1,
     "imageUrl": "https://picsum.photos/id/6/",
     "name": "Oliver",
     "country": "Canada",
@@ -93,8 +93,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "7",
-    "x": 604,
-    "y": 363,
+    "x": 23,
+    "y": 11,
     "imageUrl": "https://picsum.photos/id/7/",
     "name": "Harper",
     "country": "Germany",
@@ -108,8 +108,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "8",
-    "x": 480,
-    "y": 763,
+    "x": 30,
+    "y": 3,
     "imageUrl": "https://picsum.photos/id/8/",
     "name": "Amelia",
     "country": "Germany",
@@ -123,8 +123,8 @@ export const mockFaces: FaceCell[] = [
   },
   {
     "id": "9",
-    "x": 230,
-    "y": 517,
+    "x": 23,
+    "y": 17,
     "imageUrl": "https://picsum.photos/id/9/",
     "name": "Harper",
     "country": "Germany",
